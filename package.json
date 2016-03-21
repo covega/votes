@@ -1,0 +1,25 @@
+{
+  "name": "votesApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jshint": "./node_modules/.bin/jshint --config .jshintrc --exclude=node_modules --exclude=test . || exit 0"
+  },
+  "author": "John Morgan",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.2",
+    "angular-animate": "^1.5.2",
+    "angular-aria": "^1.5.2",
+    "angular-material": "^1.0.6",
+    "angular-messages": "^1.5.2",
+    "angular-resource": "^1.5.2",
+    "angular-route": "^1.5.2",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "jshint": "^2.9.1",
+    "mongoose": "^4.4.8"
+  }
+}

@@ -9,6 +9,10 @@ votesApp.config(['$routeProvider',
                 templateUrl: 'components/poll/pollTemplate.html',
                 controller: 'PollController'
             }).
+            when('/home', {
+                templateUrl: 'components/home/homeTemplate.html',
+                controller: 'HomeController'
+            }).            
             otherwise({
                 redirectTo: '/'
             });

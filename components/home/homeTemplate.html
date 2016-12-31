@@ -1,0 +1,28 @@
+<div ng-cloak>
+    <md-content>
+    	<md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
+    		<md-tab label = "New Issues">
+                <div ng-repeat="poll in newPolls">
+                        <div class = "poll">
+                            <p> {{poll.topic}} </p>
+                            <p> voter guide </p>
+                            <p> {{poll.numResponses}} </p>
+                            <p> {{poll.percentFor}}% </p>
+                            <p> {{poll.percentAgainst}}% </p>
+                        </div>
+                </div>
+        	</md-tab>
+    		<md-tab label = "Current Stances">
+                <div ng-repeat="poll in oldPolls">
+                        <div class = "poll">
+                            <p> {{poll.topic}} </p>
+                            <p> voter guide </p>
+                            <p> {{poll.numResponses}} </p>
+                            <p> {{poll.percentFor}}% </p>
+                            <p> {{poll.percentAgainst}}% </p>
+                        </div>
+                </div>
+        	</md-tab>        	
+    	</md-tabs>
+    </md-content>
+</div>

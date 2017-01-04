@@ -6,11 +6,9 @@ votesApp.controller('PollController', ['$scope', '$routeParams',
 	function($scope, $routeParams){
 
     $scope.login = false;       
-    // this should be an a list of polls
+    // Design individual poll page
 
     // here would be a db query
-
-    // for mock only
     var poll = {
         topic: "Does Stanford Hate Fun?",
         numResponses: 100,

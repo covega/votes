@@ -2,27 +2,54 @@
     <md-content>
     	<md-tabs md-center-tabs="true" md-dynamic-height md-border-bottom>
     		<md-tab label = "New Issues">
-                <div ng-repeat="poll in newPolls">
-                        <div class = "poll">
-                            <p> {{poll.topic}} </p>
-                            <p> voter guide </p>
-                            <p> {{poll.numResponses}} </p>
-                            <p> {{poll.percentFor}}% </p>
-                            <p> {{poll.percentAgainst}}% </p>
-                        </div>
-                </div>
+                <md-content>
+                    <div ng-repeat="poll in newPolls">
+                        <md-card>
+                            <div id = "newPoll-{{$index}}" class = "poll">
+                                <md-card-header> 
+                                    <md-card-header-text>
+                                        <span class = "md-title"> {{poll.topic}} </span>
+                                        <span class = "md-subhead"> {{poll.numResponses}} responses </span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content>
+                                    <p> The university has step by step been removing all our fun stuff. A vote for means the univeristy hates fun. A vote against means they do not hate fun. </p>
+                                    <md-card-actions layout="column" layout-align="start">
+                                    <!--Blind voting until initial cast-->
+                                      <md-button class="for md-raised md-primary" ng-click="vote($event, poll, $index)" id = 'new-for-{{$index}}'>For</md-button>
+                                      <md-button class="against md-raised md-primary" ng-click="vote($event, poll, $index)" id = 'new-against-{{$index}}'>Against</md-button>
+                                    </md-card-actions>             
+                                </md-card-content>
+                            </div>
+                        </md-card>
+                    </div>
+                </md-content>
         	</md-tab>
     		<md-tab label = "Current Stances">
-                <div ng-repeat="poll in oldPolls">
-                        <div class = "poll">
-                            <p> {{poll.topic}} </p>
-                            <p> voter guide </p>
-                            <p> {{poll.numResponses}} </p>
-                            <p> {{poll.percentFor}}% </p>
-                            <p> {{poll.percentAgainst}}% </p>
-                        </div>
-                </div>
+                <md-content>
+                    <div ng-repeat="poll in oldPolls">
+                        <md-card>
+                            <div id = "oldPoll-{{$index}}" class = "poll">
+                                <md-card-header> 
+                                    <md-card-header-text>
+                                        <span class = "md-title"> {{poll.topic}} </span>
+                                        <span class = "md-subhead"> {{poll.numResponses}} responses </span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content>
+                                    <p> The university has step by step been removing all our fun stuff. A vote for means the univeristy hates fun. A vote against means they do not hate fun. </p>
+                                    <md-card-actions layout="column" layout-align="start">
+                                    <!--Blind voting until initial cast-->
+                                      <md-button class="for md-raised md-primary" ng-click="vote($event, poll, $index)" id = 'old-for-{{$index}}'>For</md-button>
+                                      <md-button class="against md-raised md-primary" ng-click="vote($event, poll, $index)" id = 'old-against-{{$index}}'>Against</md-button>
+                                    </md-card-actions>             
+                                </md-card-content>
+                            </div>
+                        </md-card>                        
+                    </div>
+                <md-content>
         	</md-tab>        	
     	</md-tabs>
     </md-content>
 </div>
+

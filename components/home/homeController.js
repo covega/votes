@@ -26,82 +26,91 @@ votesApp.controller('HomeController', ['$scope', '$routeParams',
 		    currentStance: "for",
 		};
 
-		var computerPercents = function (poll) {
+		var computePercents = function (poll) {
 			poll.percentFor = percent* (poll.votesFor / poll.numResponses);
 			poll.percentAgainst = percent* (poll.votesAgainst / poll.numResponses);
 		}
 
-		computerPercents(newPoll);
-		computerPercents(oldPoll);
-
 		$scope.newPolls.push(newPoll);
 		$scope.oldPolls.push(oldPoll);
 
-		var showVotes = function (stance, poll, index) {
-			
-			// highlight the stance in the dom
-				// use the id
+
+		var setVoteForButtonClasses = function (forButton, againstButton) {
+			againstButton.classList.remove('stance');
+			againstButton.classList.add('not-stance');				
+			forButton.classList.add('stance');
+			forButton.classList.remove('not-stance');
+		};
+
+		var setVoteAgainstButtonClasses = function (forButton, againstButton) {
+			againstButton.classList.add('stance');
+			againstButton.classList.remove('not-stance');
+			forButton.classList.remove('stance');
+			forButton.classList.add('not-stance');
+		};
+
+		var setState = function (poll) {
+			var state;
+			if (poll.currentStance === "none") {
+				state = "new";
+			} else if (poll.currentStance === "for" || poll.currentStance === "against"){
+				state = "old";
+			} else {
+				console.log('something is wrong');
+			}
+			return state;
+		};
+
+		var updateVotedForPoll = function (poll) {
+			if (poll.currentStance === 'against') {
+				poll.votedAgainst -= 1;
+			} else if (poll.currentStance === 'none') {
+				poll.votesFor += 1;
+				poll.numResponses += 1;				
+			}
+			return poll;
+		};
+
+		var updateVotedAgainstPoll = function (poll) {
+			if (poll.currentStance === 'for') {
+				poll.votedFor -= 1;
+			} else if (poll.currentStance === 'none') {
+				poll.votesAgainst += 1;					
+				poll.numResponses += 1;
+			}
+
+			return poll;
+		};
+
+		var showPercentages = function (poll, forButton, againstButton) {
+			computePercents(poll);
+			// TODO: change to SafeHTML
+			forButton.innerHTML = poll.percentFor + '%';
+			againstButton.innerHTML = poll.percentAgainst + '%';			
 		}
 
-
-
 		$scope.vote = function ($event, poll, index) {
-			console.log(poll);
 			var stance = $event.currentTarget.classList[0];
-			var state;
-
-			if (poll.currentStance === "none") {
-				state = "new"
-			} else if (poll.currentStance === "for" || poll.currentStance === "against"){
-				state = "old"
-			} else {	//something is wrong
-				console.log('something is wrong');
-				return;
-			}
+			var state = setState(poll);
 
 			var pollElem = document.getElementById(state + 'Poll-' + index);
 
-
-
 			// TODO: check if they've already voted, are logged in
 			// send vote/updated vote to backend
-			// show vote counts instead of For or Against
 			var forButton = document.getElementById(state+'-for-'+index);	
 			var againstButton = document.getElementById(state+'-against-'+index);
 			if (stance === 'for') {
-				if (poll.currentStance === 'against') {
-					poll.votedAgainst -= 1;
-				} else if (poll.currentStance === 'none') {
-					poll.votesFor += 1;
-					poll.numResponses += 1;				
-				}
-				console.log('vote for');
-				againstButton.classList.remove('stance');
-				againstButton.classList.add('not-stance');				
-				forButton.classList.add('stance');
-				forButton.classList.remove('not-stance');
+				poll = updateVotedForPoll(poll);
+				setVoteForButtonClasses(forButton, againstButton);
 			} else if (stance === 'against') {
-				if (poll.currentStance === 'for') {
-					poll.votedFor -= 1;
-				} else if (poll.currentStance === 'none') {
-					poll.votesAgainst += 1;					
-					poll.numResponses += 1;
-				}
-				console.log('vote against');
-				againstButton.classList.add('stance');
-				againstButton.classList.remove('not-stance');
-				forButton.classList.remove('stance');
-				forButton.classList.add('not-stance');
+				poll = updateVotedAgainstPoll(poll);
+				setVoteAgainstButtonClasses(forButton, againstButton);
 			} else { // something is wrong
 				return;
 			}
-			computerPercents(poll);
-			// TODO: change to SafeHTML
-			forButton.innerHTML = poll.percentFor + '%';
-			againstButton.innerHTML = poll.percentAgainst + '%';
+
 			poll.currentStance = stance;
-			console.log('done');
-			//showVotes(stance, poll, index);
+			showPercentages(poll, forButton, againstButton);
 		};
 
     }]);

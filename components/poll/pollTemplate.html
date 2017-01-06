@@ -1,13 +1,36 @@
-<div>
-<!-- 
-    ng-if login to function call here but also in backend
-    make this a generic component, use on page and in home w/ different css 
--->
-    <div class = "poll">
-        <p> {{topic}} </p>
-        <p> voter guide </p>
-        <p> {{totalVotes}} </p>
-        <p> {{forPercent}}% </p>
-        <p> {{againstPercent}}% </p>
-    </div>
+<div ng-cloak>
+	<md-content>
+	        <md-card class = "poll-page-poll">
+	            <md-card-header> 
+	                <md-card-header-text>
+	                    <span class = "md-title"> {{poll.topic}} </span>
+	                    <span class = "md-subhead"> {{poll.numResponses}} responses </span>
+	                </md-card-header-text>
+	            </md-card-header>
+	            <md-card-content>
+	                <p> The university has step by step been removing all our fun stuff. A vote for means the univeristy hates fun. A vote against means they do not hate fun. </p>
+	                <svg class = "results" width = "90%" height = "10%">
+	                	<g transform = "translate(0,0)">
+	                		<rect width = "{{poll.percentFor}}%" height = "30%"></rect>		                
+	                		<text x ="{{poll.percentFor}}%" y="15%" dy=".35em">{{poll.percentFor}}%</text>
+	                	</g>
+	             		<g transform = "translate(0,50)">
+	                		<rect width = "{{poll.percentAgainst}}%" height = "30%"></rect>
+	                		<text x ="{{poll.percentAgainst}}%" y="15%" dy=".35em">{{poll.percentAgainst}}%</text>
+	                	</g>
+	                </svg>
+	                <!-- What other information can be included on this page? 
+						Longer voting guide
+						selected user comments
+						Historical background?
+						Distribution of years - necessary
+							Show only undergrad
+							Show only grad
+							Show only faculty
+	            	-->
+
+	            </md-card-content>
+		    </md-card>
+        </div>
+    </md-content>
 </div>

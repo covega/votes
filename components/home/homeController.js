@@ -9,6 +9,11 @@ votesApp.controller('HomeController', ['$scope', '$routeParams',
 		$scope.newPolls = [];
 		$scope.oldPolls = [];
 
+
+		$scope.notStanceStyle = {
+			"background": "linear-gradient(90deg, #ff0000 50%, #0000ff 0%);",						
+		}
+
 		// here would be a db query
 		var newPoll = {
 		    topic: "Does the University Hate Fun?",
@@ -38,8 +43,11 @@ votesApp.controller('HomeController', ['$scope', '$routeParams',
 		var setVoteForButtonClasses = function (forButton, againstButton) {
 			againstButton.classList.remove('stance');
 			againstButton.classList.add('not-stance');				
+			forButton.style
 			forButton.classList.add('stance');
 			forButton.classList.remove('not-stance');
+
+
 		};
 
 		var setVoteAgainstButtonClasses = function (forButton, againstButton) {
@@ -87,7 +95,7 @@ votesApp.controller('HomeController', ['$scope', '$routeParams',
 			// TODO: change to SafeHTML
 			forButton.innerHTML = poll.percentFor + '%';
 			againstButton.innerHTML = poll.percentAgainst + '%';			
-		}
+		};
 
 		$scope.vote = function ($event, poll, index) {
 			var stance = $event.currentTarget.classList[0];

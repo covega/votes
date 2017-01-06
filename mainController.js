@@ -21,5 +21,4 @@ votesApp.config(['$routeProvider',
 votesApp.controller('MainController', ['$scope',
     function ($scope) {
         $scope.main = {};
-
     }]);
